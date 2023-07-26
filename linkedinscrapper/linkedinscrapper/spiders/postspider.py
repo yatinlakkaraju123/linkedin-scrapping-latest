@@ -12,7 +12,7 @@ class PostspiderSpider(scrapy.Spider):
 
     def start_requests(self):
         post_list = []
-        url = "https://raw.githubusercontent.com/yatinlakkaraju123/post-scrapping/main/linkedinscrapper/data/postslinkscrapper2/postslinkscrapper2_2023-07-05T06-52-27.csv"
+        url = "https://raw.githubusercontent.com/yatinlakkaraju123/post-scrapping/main/linkedinscrapper/data/postslinkscrapper/postslinkscrapper_2023-07-04T15-38-49.csv"
         
         try:
             response = requests.get(url)
@@ -89,7 +89,11 @@ class PostspiderSpider(scrapy.Spider):
         #item['hashtag6'] = post.css('div.attributed-text-segment-list__container.relative.mt-1.mb-1\.5.babybear\:mt-0.babybear\:mb-0\.5 p a:nth-child(6)::text').get().strip()
         if post.css('div.flex.items-center.font-sans.text-sm.my-1.main-feed-activity-card__social-actions a span::text').get() is not None:
             item['likes'] = post.css('div.flex.items-center.font-sans.text-sm.my-1.main-feed-activity-card__social-actions a span::text').get().strip()
+        else:
+            item['likes'] = ''
         if post.css('time.flex-none::text').get() is not None:
             item['time'] = post.css('time.flex-none::text').get().strip()
+        else:
+            item['time'] = ''
         
         yield item
